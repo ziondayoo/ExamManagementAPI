@@ -10,7 +10,7 @@
 
         public int TotalScore { get; set; }
         public ExamStatus Status { get; set; }
-
+        
         public Exam()
         {
             ObjectiveQuestions = new List<ObjectiveQuestion>();

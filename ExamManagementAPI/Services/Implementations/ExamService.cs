@@ -1,6 +1,7 @@
 ﻿
 using ExamManagementAPI.Data;
 using ExamManagementAPI.Models;
+using ExamManagementAPI.Models.DTOs;
 using ExamManagementAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,14 +39,18 @@ namespace ExamManagementAPI.Services.Implementations
             return await SavedAsync();
         }
 
-        public Task<bool> DeleteObjectiveQuestion(string Id)
+        public async Task<bool> DeleteObjectiveQuestion(string Id)
         {
-            throw new NotImplementedException();
+            var question = await _ctx.ObjectiveQuestions.FindAsync(Id);
+            _ctx.ObjectiveQuestions.Remove(question);
+            return await SavedAsync();
         }
 
-        public Task<bool> DeleteTheoryQuestion(string Id)
+        public async Task<bool> DeleteTheoryQuestion(string Id)
         {
-            throw new NotImplementedException();
+            var question = await _ctx.TheoryQuestions.FindAsync(Id);
+            _ctx.TheoryQuestions.Remove(question);
+            return await SavedAsync();
         }
 
         public async Task<Exam> GetExamById(string? id)
@@ -55,25 +60,30 @@ namespace ExamManagementAPI.Services.Implementations
             return result;
         }
 
-        public Task<bool> MarkObjectiveQuestion(string questionId)
+        public async Task<bool> MarkObjectiveQuestion(GetObjectiveQuestion question)
         {
-            throw new NotImplementedException();
+            var getQuestion = await _ctx.ObjectiveQuestions.FindAsync(question.QuestionNo);
+            if (getQuestion.Answer == question.Answer)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public Task<bool> MarkTheoryQuestion(string questionId)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<bool> MarkTheoryQuestion(string questionId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public Task<bool> UpdateObjectiveQuestion(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateTheoryQuestion(string Id)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<bool> UpdateTheoryQuestion(string Id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task<bool> CreateExam(Exam exam)
         {
@@ -87,9 +97,9 @@ namespace ExamManagementAPI.Services.Implementations
             return await SavedAsync();
         }
 
-        public async Task<IEnumerable<Exam>> GetAllExams()
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<IEnumerable<Exam>> GetAllExams()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

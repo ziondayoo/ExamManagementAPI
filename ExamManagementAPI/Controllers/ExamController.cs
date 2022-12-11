@@ -51,11 +51,28 @@ namespace ExamManagementAPI.Controllers
 
         }
 
-        [HttpGet]
-        [Route("get-all-exams")]
-        public async Task<IActionResult> GetAllExams()
+        //[HttpGet]
+        //[Route("get-all-exams")]
+        //public async Task<IActionResult> GetAllExams()
+        //{
+        //    var result = await _examService.GetAllExams();
+
+        //    return Ok(result);
+        //}
+
+        [HttpPost]
+        [Route("mark-Objective")]
+        public async Task<IActionResult> MarkObjective(GetObjectiveQuestion question)
         {
-            var result = await _examService.GetAllExams();
+            var result = await _examService.MarkObjectiveQuestion(question);
+
+            return Ok(result);
+        }
+        [HttpPost]
+        [Route("submit-theory-answer")]
+        public async Task<IActionResult> SubmitTheoryAnswer(GetObjectiveQuestion question)
+        {
+            var result = await _examService.MarkObjectiveQuestion(question);
 
             return Ok(result);
         }

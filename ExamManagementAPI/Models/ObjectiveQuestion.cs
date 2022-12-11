@@ -6,7 +6,7 @@
         public int QuestionNumber { get; set; }
         public string? Question { get; set; }
         public List<QuestionOptions>? QuestionOptions { get; set; }
-
+        public Char Answer { get; set; }
         public ObjectiveQuestion()
         {
             QuestionOptions = new List<QuestionOptions>();
