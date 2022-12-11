@@ -80,11 +80,8 @@ namespace ExamManagementAPI.Migrations
 
             modelBuilder.Entity("ExamManagementAPI.Models.QuestionOptions", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ObjectiveQuestionId")
                         .HasColumnType("nvarchar(450)");
@@ -95,10 +92,7 @@ namespace ExamManagementAPI.Migrations
                     b.Property<string>("OptionName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedBy")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.HasIndex("ObjectiveQuestionId");
 

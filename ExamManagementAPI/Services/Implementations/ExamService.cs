@@ -62,12 +62,19 @@ namespace ExamManagementAPI.Services.Implementations
 
         public async Task<bool> MarkObjectiveQuestion(GetObjectiveQuestion question)
         {
-            var getQuestion = await _ctx.ObjectiveQuestions.FindAsync(question.QuestionNo);
+            var getQuestion = await _ctx.ObjectiveQuestions.Where(x => x.QuestionNumber == question.QuestionNo).FirstOrDefaultAsync();
             if (getQuestion.Answer == question.Answer)
             {
                 return true;
             }
             return false;
+        }
+        public async Task submitTheoryAnswer(SubmitTheoryAnswer question)
+        {
+            var getQuestion = await _ctx.TheoryQuestions.FindAsync(question.TheoryQuestionNumber);
+            getQuestion.Answer = question.Answer;
+            _ctx.TheoryQuestions.Update(getQuestion);
+            await _ctx.SaveChangesAsync();
         }
 
         //public Task<bool> MarkTheoryQuestion(string questionId)

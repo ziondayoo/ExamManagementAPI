@@ -42,7 +42,7 @@ namespace ExamManagementAPI.Controllers
         public async Task<IActionResult> AddObjectiveQuestion([FromBody] AddObjectiveQuestionDTO question, string examId)
         {
             var exam = await _examService.GetExamById(examId);
-            var questionToAdd = new ObjectiveQuestion() { QuestionNumber = question.QuestionNumber, Question = question.Question, QuestionOptions = question.QuestionOptions };
+            var questionToAdd = new ObjectiveQuestion() { Answer = question.Answer, QuestionNumber = question.QuestionNumber, Question = question.Question, QuestionOptions = question.QuestionOptions };
 
 
             exam?.ObjectiveQuestions?.Add(questionToAdd);
@@ -70,11 +70,10 @@ namespace ExamManagementAPI.Controllers
         }
         [HttpPost]
         [Route("submit-theory-answer")]
-        public async Task<IActionResult> SubmitTheoryAnswer(GetObjectiveQuestion question)
+        public async Task<IActionResult> SubmitTheoryAnswer(SubmitTheoryAnswer answer)
         {
-            var result = await _examService.MarkObjectiveQuestion(question);
-
-            return Ok(result);
+            await _examService.submitTheoryAnswer(answer);
+            return Ok();
         }
     }
 }

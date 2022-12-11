@@ -6,6 +6,7 @@ namespace ExamManagementAPI.Services.Interfaces
     public interface IExamService
     {
         Task<bool> AddTheoryQuestion(TheoryQuestion question);
+        Task submitTheoryAnswer(SubmitTheoryAnswer question);
         Task<bool> DeleteTheoryQuestion(string Id);
         //Task<bool> UpdateTheoryQuestion(string Id);
         Task<bool> AddObjectiveQuestion(ObjectiveQuestion question);

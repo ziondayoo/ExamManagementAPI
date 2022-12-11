@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExamManagementAPI.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +32,7 @@ namespace ExamManagementAPI.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     QuestionNumber = table.Column<int>(type: "int", nullable: false),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Answer = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     ExamId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -53,6 +54,7 @@ namespace ExamManagementAPI.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     QuestionNumber = table.Column<int>(type: "int", nullable: false),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExamId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -71,16 +73,14 @@ namespace ExamManagementAPI.Migrations
                 name: "QuestionOptions",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     OptionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OptionContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ObjectiveQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedBy = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ObjectiveQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionOptions", x => x.Id);
+                    table.PrimaryKey("PK_QuestionOptions", x => x.id);
                     table.ForeignKey(
                         name: "FK_QuestionOptions_ObjectiveQuestions_ObjectiveQuestionId",
                         column: x => x.ObjectiveQuestionId,

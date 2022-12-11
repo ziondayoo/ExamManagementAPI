@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamManagementAPI.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20221211075635_initialcreate")]
-    partial class initialcreate
+    [Migration("20221211225908_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,10 @@ namespace ExamManagementAPI.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
                     b.Property<DateTime>("CreatedBy")
                         .HasColumnType("datetime2");
 
@@ -78,11 +82,8 @@ namespace ExamManagementAPI.Migrations
 
             modelBuilder.Entity("ExamManagementAPI.Models.QuestionOptions", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ObjectiveQuestionId")
                         .HasColumnType("nvarchar(450)");
@@ -93,10 +94,7 @@ namespace ExamManagementAPI.Migrations
                     b.Property<string>("OptionName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedBy")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.HasIndex("ObjectiveQuestionId");
 
@@ -107,6 +105,9 @@ namespace ExamManagementAPI.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedBy")
                         .HasColumnType("datetime2");
