@@ -31,6 +31,11 @@ namespace ExamManagementAPI.Controllers
         public async Task<IActionResult> AddTheoryQuestion([FromBody] AddTheoryQuestionDTO question, string examId)
         {
             var exam = await _examService.GetExamById(examId);
+
+            if (exam == null)
+            {
+                return BadRequest("No such course Exist with said Id");
+            }
             var questionToAdd = new TheoryQuestion() { Question = question.Question, QuestionNumber = question.QuestionNumber };
             exam?.TheoryQuestions?.Add(questionToAdd);
             var result = await _examService.UpdateExam(exam);
@@ -42,6 +47,10 @@ namespace ExamManagementAPI.Controllers
         public async Task<IActionResult> AddObjectiveQuestion([FromBody] AddObjectiveQuestionDTO question, string examId)
         {
             var exam = await _examService.GetExamById(examId);
+            if(exam == null)
+            {
+                return BadRequest("No such course Exist with said Id");
+            }
             var questionToAdd = new ObjectiveQuestion() { Answer = question.Answer, QuestionNumber = question.QuestionNumber, Question = question.Question, QuestionOptions = question.QuestionOptions };
 
 
