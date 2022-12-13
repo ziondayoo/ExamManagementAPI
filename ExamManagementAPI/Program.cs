@@ -1,4 +1,5 @@
 using ExamManagementAPI.Data;
+using ExamManagementAPI.Extensions;
 using ExamManagementAPI.Services.Implementations;
 using ExamManagementAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,21 +16,30 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IExamService, ExamService>();
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDataContext>(option => option.UseSqlServer(connectionString));
+var configuration = builder.Configuration;
+builder.Services.AddDbContext<AppDataContext>(option => option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+}*/
 
+/*builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+);*/
+
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseRouting();
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.MigrateDatabase();
 app.Run();
