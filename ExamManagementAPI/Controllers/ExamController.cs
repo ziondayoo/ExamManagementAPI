@@ -22,9 +22,16 @@ namespace ExamManagementAPI.Controllers
         [Route("create-exam")]
         public async Task<IActionResult> CreateExam(CreateExamDTO exam)
         {
-            var examToAdd = new Exam() { ExamName = exam.ExamName };
-            var result = await _examService.CreateExam(examToAdd);
-            return result ? Ok(exam) : BadRequest("exam could not be created");
+            try
+            {
+                var examToAdd = new Exam() { ExamName = exam.ExamName };
+                var result = await _examService.CreateExam(examToAdd);
+                return result ? Ok(exam) : BadRequest("exam could not be created");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Something went wrong");
+            }
         }
         [HttpPost]
         [Route("add-theory-question/{examId}")]

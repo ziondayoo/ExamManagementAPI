@@ -94,8 +94,17 @@ namespace ExamManagementAPI.Services.Implementations
 
         public async Task<bool> CreateExam(Exam exam)
         {
-            await _ctx.Exams.AddAsync(exam);
-            return await SavedAsync();
+            try
+            {
+                var added = await _ctx.Exams.AddAsync(exam);
+                await SavedAsync();
+                
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> UpdateExam(Exam exam)
